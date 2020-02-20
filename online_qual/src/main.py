@@ -11,20 +11,15 @@ class Library:
 
 if __name__ == "__main__":
 
-    books_libraries_days = input().split()
-    book_scores = input().split()
-
-    print(books_libraries_days)
-    print(book_scores)
+    books_libraries_days = list(map(int, input().split()))
+    book_scores = list(map(int, input().split()))
 
     libraries = []
 
     while True:
         try:
-            library_data = input().split()
-            library_books = input().split()
+            library_data = list(map(int, input().split()))
+            library_books = list(map(int, input().split()))
             libraries.append(Library(library_data, library_books))
         except EOFError:
             break
-    
-    print(libraries)
