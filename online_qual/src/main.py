@@ -30,8 +30,9 @@ if __name__ == "__main__":
 
     books_libraries_days = list(map(int, input().split()))
     book_scores = list(map(int, input().split()))
-
     libraries = []
+
+    books_sent_so_far = set([])
 
     while True:
         try:
@@ -41,7 +42,19 @@ if __name__ == "__main__":
         except EOFError:
             break
 
-print(libraries[0].books, libraries[1].books)
-print(book_scores)
+    def send_books(index):
+        library = libraries[index]
+        to_send = []
+        for book in library.books:
+            if book in books_sent_so_far:
+                continue
+            if len(to_send) == library.book_ship_rate:
+                break
+
+            to_send.append(book)
+            books_sent_so_far.add(book)
+
+        return to_send            
+
+
 rank_libraries(libraries)
-print(libraries[0].books, libraries[1].books)
