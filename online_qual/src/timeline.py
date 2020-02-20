@@ -57,7 +57,7 @@ class Timeline():
                         self.rank_libraries(self.libraries)
                         try:
                             res.append((self.libraries[0].id,
-                                        self.libraries[0].num_signup_days))
+                                        self.libraries[0].num_signup_days - 1))
                         except:
                             print('list empty')
                     else:
@@ -72,7 +72,7 @@ class Timeline():
         else:
             self.rank_libraries(self.libraries)
             res.append(
-                (self.libraries[0].id, self.libraries[0].num_signup_days))
+                (self.libraries[0].id, self.libraries[0].num_signup_days - 1))
         self.newDay(res)
 
     def print(self):
