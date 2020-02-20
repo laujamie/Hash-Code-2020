@@ -7,6 +7,22 @@ class Timeline():
         self.libraries = libraries
         self.book_scores = book_scores
         self.registered_libs = []
+        self.all_libs = libraries.slice()
+        self.books_sent_so_far = set([])
+
+    def send_books(self, index):
+        library = self.all_libs[index]
+        to_send = []
+        for book in library.books:
+            if book in self.books_sent_so_far:
+                continue
+            if len(to_send) == library.book_ship_rate:
+                break
+
+            to_send.append(book)
+            self.books_sent_so_far.add(book)
+
+        return to_send
 
     def library_score(self, library):
         return sum(self.book_scores[i] for i in library.books) / (
@@ -34,7 +50,8 @@ class Timeline():
                         self.libraries = self.libraries[1:]
                     except:
                         print('Jeffrey is crazy')
-                    # some call to add new books
+                    books = self.send_books(i)
+                    res.append(i, books)
                     # register a new library
                     self.rank_libraries(self.libraries)
                     try:
@@ -46,8 +63,8 @@ class Timeline():
                     temp = (self.libraries[i].id, j - 1)
                     res.append(temp)
             if isinstance(j, list):
-                print('Not working yet')
-                # some function call to add more books
+                books = self.send_books(i)
+                res.append(i, books)
         if not prev_day:
             self.rank_libraries(self.libraries)
             res.append(
@@ -58,7 +75,7 @@ class Timeline():
         output = []
         output.append(len(self.registered_libs))
         for lib in self.registered_libs:
-            output.append(f"{lib.id} {len(lib.sent_books)")
+            output.append(f"{lib.id} {len(lib.sent_books)}")
             temp = ""
             for b in lib.sent_books:
                 temp += f"{b} "

@@ -26,7 +26,6 @@ if __name__ == "__main__":
 
     num_books, num_libraries, num_days = tuple(map(int, input().split()))
     book_scores = list(map(int, input().split()))
-
     libraries = []
 
     i = 0
