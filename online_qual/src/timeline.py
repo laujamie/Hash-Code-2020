@@ -55,17 +55,19 @@ class Timeline():
                         res.append((i, books))
                         # register a new library
                         self.rank_libraries(self.libraries)
-                        print(self.libraries)
                         try:
                             res.append((self.libraries[0].id,
                                         self.libraries[0].num_signup_days))
                         except:
                             print('list empty')
                     else:
-                        temp = (self.libraries[i].id, j - 1)
+                        temp = (i, j - 1)
                         res.append(temp)
                 if isinstance(j, list):
+                    lib = next(lib for lib in self.registered_libs if lib.id == i)
                     books = self.send_books(i)
+                    for b in books:
+                        lib.sent_books.append(b)
                     res.append((i, books))
         else:
             self.rank_libraries(self.libraries)
@@ -81,6 +83,7 @@ class Timeline():
             temp = ""
             for b in lib.sent_books:
                 temp += f"{b} "
+            output.append(temp)
         with open("output.txt", "w+") as f:
             for line in output:
                 print(line, file=f)
