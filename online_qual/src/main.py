@@ -2,6 +2,7 @@ from sys import stdin
 
 books = []
 scanned_books = []
+book_scores = []
 
 def library_score(library):
   return sum(book_scores[i] for i in library.books)/(library.num_signup_days+library.num_books/library.book_ship_rate)
@@ -18,6 +19,11 @@ class Library:
         self.num_signup_days = int(library_data[1])
         self.book_ship_rate = int(library_data[2])
         self.books = books
+        self.books.sort(key=self.sort_books,reverse=True)
+        self.registered = False
+        
+    def sort_books(self, index):
+        return book_scores[index]    
 
 
 if __name__ == "__main__":
