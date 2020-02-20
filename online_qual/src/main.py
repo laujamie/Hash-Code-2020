@@ -1,5 +1,7 @@
 from sys import stdin
 
+from .timeline import Timeline
+
 books = []
 scanned_books = []
 book_scores = []
@@ -14,6 +16,7 @@ class Library:
         self.books.sort(key=self.sort_books, reverse=True)
         self.registered = False
         self.id = id
+        self.sent_books = []
 
     def sort_books(self, index):
         return book_scores[index]
@@ -21,7 +24,7 @@ class Library:
 
 if __name__ == "__main__":
 
-    books_libraries_days = list(map(int, input().split()))
+    num_books, num_libraries, num_days = tuple(map(int, input().split()))
     book_scores = list(map(int, input().split()))
 
     libraries = []
@@ -36,6 +39,8 @@ if __name__ == "__main__":
         except EOFError:
             break
 
-print(libraries[0].books, libraries[1].books)
-print(book_scores)
-print(libraries[0].books, libraries[1].books)
+    timeline = Timeline(libraries, book_scores)
+    for i in range(num_days):
+        timeline.generateActions()
+
+    timeline.print()

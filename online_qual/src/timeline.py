@@ -1,3 +1,6 @@
+from functools import reduce
+
+
 class Timeline():
     def __init__(self, libraries, book_scores):
         self.timeline = []
@@ -50,3 +53,15 @@ class Timeline():
             res.append(
                 (self.libraries[0].id, self.libraries[0].num_signup_days))
         self.newDay(res)
+
+    def print(self):
+        output = []
+        output.append(len(self.registered_libs))
+        for lib in self.registered_libs:
+            output.append(f"{lib.id} {len(lib.sent_books)")
+            temp = ""
+            for b in lib.sent_books:
+                temp += f"{b} "
+        with open("output.txt", "w+") as f:
+            for line in output:
+                print(line, file=f)
