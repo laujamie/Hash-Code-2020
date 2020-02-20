@@ -1,6 +1,6 @@
 from sys import stdin
 
-from .timeline import Timeline
+from timeline import Timeline
 
 books = []
 scanned_books = []
